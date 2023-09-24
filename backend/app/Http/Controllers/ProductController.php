@@ -11,7 +11,7 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::paginate(1);
+        $products = Product::paginate(10);
         return ProductResource::collection($products);
     }
 
@@ -41,7 +41,7 @@ class ProductController extends Controller
     public function search(Request $request)
     {
         $keyword = $request->keyword;
-        $products = Product::where('name', 'like',  $keyword . '%')->paginate(1);
+        $products = Product::where('name', 'like',  $keyword . '%')->paginate(10);
         return ProductResource::collection($products);
     }
 
