@@ -65,7 +65,7 @@
 
           <!-- Add more buttons as needed based on the number of pages -->
 
-          <span class="ml-2">of {{ this.meta.total }}</span>
+          <span class="ml-2">of {{ this.meta.last_page}}</span>
         </div>
         <div class="flex">
           <button
@@ -139,7 +139,7 @@ export default {
       }
     },
     nextPage() {
-      if (this.currentPage < this.meta.total) {
+      if (this.currentPage < this.meta.last_page) {
         this.currentPage++;
         this.searchProducts();
       }
