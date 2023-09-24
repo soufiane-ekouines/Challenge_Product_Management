@@ -1,8 +1,17 @@
 <template>
-  <div class="container flex justify-around pt-9 mx-auto">
-    <input type="text" v-model="search" id="search" class="border rounded p-2 w-full" @input=" searchProducts()" />
+  <div class="w-[75%] flex pt-9 pb-4 mx-auto">
+    <input type="text" v-model="search" id="search" class="border rounded-lg p-2 w-full" @input=" searchProducts()" />
+    <div class="pl-2 z-0 group w-35">
+        <select type="filter" name="filter" v-model="filter"  id="filter" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        <option value="name">By name</option>
+        <option value="type">By type</option>
+        <option value="desc">By details</option>
+        <option value="price">By price</option>
+        </select>
+  
+    </div>
   </div>
-  <div class="container  justify-around pb-8 mx-auto">
+  <div class="w-[75%]  justify-around pb-8 mx-auto">
     <div>
     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
       <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -14,6 +23,9 @@
             Name
           </th>
           <th scope="col" class="px-6 py-3">
+            type
+          </th>
+          <th scope="col" class="px-6 py-3">
             Detail
           </th>
           <th scope="col" class="px-6 py-3">
@@ -22,15 +34,16 @@
           <th scope="col" class="px-6 py-3">
             qte
           </th>
-          <th scope="col" class="px-6 py-3">
+            <th scope="col" class="px-6 py-3">
             Actions
           </th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="product in products" :key="product.id" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+        <tr v-for="product in products" :key="product.id" class="bg-white border-b">
           <td>{{ product.id }}</td>
           <td>{{ product.name }}</td>
+          <td>{{ product.type }}</td>
           <td>{{ product.desc }}</td>
           <td>{{ product.price }}</td>
           <td>{{ product.qte }}</td>
@@ -103,6 +116,7 @@ export default {
       search:'',
       meta : {}, // Define the "page" variable
       currentPage:1,
+      filter:''
     }
   },  
   created() {
@@ -127,7 +141,7 @@ export default {
     },
     searchProducts() {
       axios
-        .post(`http://localhost:8000/api/search?page=${this.currentPage}`,{keyword:this.search})
+        .post(`http://localhost:8000/api/search?page=${this.currentPage}`,{keyword:this.search,filter:this.filter})
         .then(response => {
           this.products = response.data.data;
         });

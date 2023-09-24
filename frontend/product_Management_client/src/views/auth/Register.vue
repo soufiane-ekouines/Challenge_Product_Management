@@ -50,7 +50,8 @@ export default {
             <!-- {{ validation }} -->
         </span>
         <div class="w-full p-6 shadow bg-gray-50 lg:max-w-md">
-            <h1 class="text-3xl font-semibold text-center text-purple-700">LOGO</h1>
+            <h1 class="text-3xl font-semibold text-center text-purple-700">Squa HR
+            </h1>
             <form class="space-y-4" @submit.prevent="submit">
                 <div>
                     <label for="name" class="block text-sm text-gray-800">Name</label>
