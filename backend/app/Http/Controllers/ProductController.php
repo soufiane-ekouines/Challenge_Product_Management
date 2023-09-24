@@ -5,13 +5,14 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProductRequest;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::paginate(10);
+        $products = Auth()->user()->Products()->paginate(10);
         return ProductResource::collection($products);
     }
 
@@ -23,6 +24,8 @@ class ProductController extends Controller
     public function store(ProductRequest $request)
     {
         $product = Product::create($request->validated());
+        $product->user_id = Auth()->id();
+        $product->save();
         return new ProductResource($product);
     }
 
@@ -43,9 +46,9 @@ class ProductController extends Controller
         $keyword = $request->keyword;
         if ($request->filter) {
             $filter = $request->filter;
-            $products = Product::where($filter, 'like',  $keyword . '%')->paginate(10);
+            $products =Product::where('user_id',Auth()->id())->where($filter, 'like',  $keyword . '%')->paginate(10);
         } else
-            $products = Product::where('name', 'like',  $keyword . '%')->paginate(10);
+            $products =Product::where('user_id',Auth()->id())->where('name', 'like',  $keyword . '%')->paginate(10);
         return ProductResource::collection($products);
     }
 }

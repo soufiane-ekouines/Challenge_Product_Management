@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('desc');
             $table->double('price');
             $table->integer('qte');
+            $table->foreignId('user_id')->nullable(true);
             $table->timestamps();
         });
     }
