@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import CreateProductView from '../views/CreateProductView.vue'
+import EditeProductView from '../views/EditeProductView.vue'
 import Login from '../views/auth/Login.vue'
 import Register from '../views/auth/Register.vue'
 
@@ -14,9 +16,18 @@ const router = createRouter({
       beforeEnter: requireAuth,
     },
     {
-      path: '/about',
-      name: 'about',
-      component: () => import('../views/AboutView.vue')
+      path: '/create',
+      name: 'create',
+      component: CreateProductView,
+      // Apply the route guard to this route
+      beforeEnter: requireAuth,
+    },
+    {
+      path: '/edit/:id',
+      name: 'edit',
+      component: EditeProductView,
+      // Apply the route guard to this route
+      beforeEnter: requireAuth,
     },
     {
       path: '/login',
