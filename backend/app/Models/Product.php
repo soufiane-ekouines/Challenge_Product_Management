@@ -15,5 +15,10 @@ class Product extends Model
         'desc',
         'price',
         'qte',
+        'user_id'
     ];
+
+    function user(){
+        return $this->belongsTo(User::class);
+    }
 }
