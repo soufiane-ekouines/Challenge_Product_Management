@@ -9,26 +9,55 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView
+      component: HomeView,
+      // Apply the route guard to this route
+      beforeEnter: requireAuth,
     },
     {
       path: '/about',
       name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('../views/AboutView.vue')
     },
-    {path: '/login',
+    {
+      path: '/login',
     name: 'login',
-    component: Login
+    component: Login,
+    beforeEnter: requireGuest,
+
+
   },
   {
     path: '/register',
     name: 'register',
-    component: Register
+    component: Register,
+    beforeEnter: requireGuest,
+
   },
   ]
 })
+
+export function requireAuth(to, from, next) {
+  const isAuthenticated = localStorage.getItem('token');
+  
+  if (isAuthenticated) {
+      // If the user is authenticated, allow access to the route
+      next();
+  } else {
+      // If the user is not authenticated, redirect to the login page or another appropriate route
+      next('/login');
+  }
+}
+
+export function requireGuest(to, from, next) {
+  const isAuthenticated = localStorage.getItem('token');
+  
+  if (!isAuthenticated) {
+      // If the user is authenticated, allow access to the route
+      next();
+  } else {
+      // If the user is not authenticated, redirect to the login page or another appropriate route
+      next('/');
+  }
+}
 
 export default router

@@ -1,5 +1,5 @@
 <template>
-  <nav class="container flex justify-around py-8 mx-auto bg-white border">
+  <nav class="container flex justify-around py-8 mx-auto bg-white border w-[100%]">
     <div>
       <h3 class="text-2xl font-medium text-blue-500">LOGO</h3>
     </div>
