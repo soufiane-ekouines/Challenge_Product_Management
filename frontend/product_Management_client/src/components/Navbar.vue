@@ -5,7 +5,7 @@
     </div>
     <div class="flex items-center space-x-8">
       <RouterLink to="/">Home</RouterLink>
-      <RouterLink to="/about">About</RouterLink>
+      <RouterLink to="/create">Create</RouterLink>
       <RouterLink to="/login">Login</RouterLink>
       <RouterLink to="/register">Register</RouterLink>
       <button @click="Logout">Logout</button>
